@@ -14,117 +14,297 @@
 
     html, body {
       margin: 0;
+      width: 100%;
       min-height: 100%;
-      background: #08090c;
-      color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
+      background: #020403;
+      color: #eaffef;
+      font-family: Consolas, "Courier New", monospace;
     }
 
     body {
+      min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 50px 20px;
+      align-items: flex-start;
+      padding: 55px 20px;
+      overflow-x: hidden;
     }
+
+    /* MATRIX BACKGROUND */
+
+    #matrix {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(
+          circle at center,
+          transparent 20%,
+          rgba(0,0,0,.35) 65%,
+          rgba(0,0,0,.9) 100%
+        );
+    }
+
+    /* MAIN WINDOW */
 
     .container {
+      position: relative;
+      z-index: 2;
+
       width: 100%;
-      max-width: 850px;
+      max-width: 900px;
+
+      background: rgba(3, 8, 5, 0.90);
+
+      border: 1px solid rgba(50,255,110,.25);
+      border-radius: 14px;
+
+      padding: 30px;
+
+      box-shadow:
+        0 0 50px rgba(0,255,70,.08),
+        inset 0 0 35px rgba(0,255,70,.025);
+
+      backdrop-filter: blur(6px);
     }
 
-    .header {
-      margin-bottom: 30px;
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
     }
 
     .title {
-      font-size: 34px;
-      font-weight: 700;
       margin: 0;
+
+      color: #63ff8b;
+
+      font-size: 32px;
+      letter-spacing: 3px;
+
+      text-shadow:
+        0 0 8px rgba(60,255,110,.45);
+    }
+
+    .version {
+      color: #4f765b;
+      font-size: 12px;
     }
 
     .subtitle {
       margin-top: 8px;
-      color: #888;
-      font-size: 15px;
-    }
-
-    .status {
-      margin: 20px 0;
-      padding: 15px 18px;
-      background: #111318;
-      border: 1px solid #222630;
-      border-radius: 10px;
-    }
-
-    .status-dot {
-      display: inline-block;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #777;
-      margin-right: 8px;
-    }
-
-    .section-title {
-      margin: 30px 0 12px;
+      color: #6e8774;
       font-size: 13px;
-      color: #777;
-      font-weight: 700;
       letter-spacing: 1px;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+    .divider {
+      height: 1px;
+      margin: 25px 0;
+
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(67,255,115,.4),
+        transparent
+      );
+    }
+
+    /* STATUS */
+
+    .status {
+      display: flex;
+      align-items: center;
+
+      padding: 15px 17px;
+
+      background: rgba(4, 14, 8, .85);
+
+      border: 1px solid #17341f;
+      border-radius: 8px;
+
+      color: #a7c9af;
+
+      font-size: 14px;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+
+      margin-right: 11px;
+
+      border-radius: 50%;
+
+      background: #e3b341;
+
+      box-shadow: 0 0 10px #e3b341;
+    }
+
+    .status-dot.ready {
+      background: #42ff76;
+      box-shadow: 0 0 12px #42ff76;
+    }
+
+    .status-dot.error {
+      background: #ff4141;
+      box-shadow: 0 0 12px #ff4141;
+    }
+
+    /* PAYLOAD AREA */
+
+    #payloadArea {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .payload-card {
+      padding: 20px;
+
+      background: rgba(5, 15, 8, .85);
+
+      border: 1px solid #17391f;
+      border-radius: 9px;
+    }
+
+    .payload-title {
+      margin-bottom: 7px;
+
+      color: #5dff87;
+
+      font-size: 14px;
+      font-weight: bold;
+
+      letter-spacing: 1px;
+    }
+
+    .payload-description {
+      margin-bottom: 18px;
+
+      color: #63796a;
+
+      font-size: 12px;
+      line-height: 1.5;
     }
 
     button {
       width: 100%;
-      padding: 18px;
-      border: 1px solid #292d36;
-      border-radius: 10px;
-      background: #151820;
-      color: white;
-      font-size: 16px;
-      font-weight: 600;
+
+      padding: 17px;
+
+      border: 1px solid #39d963;
+      border-radius: 7px;
+
+      background: rgba(18, 65, 31, .55);
+
+      color: #75ff98;
+
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: bold;
+
+      letter-spacing: 2px;
+
       cursor: pointer;
+
+      transition:
+        background .15s,
+        box-shadow .15s,
+        transform .1s;
     }
 
     button:hover {
-      background: #1d212b;
+      background: rgba(29, 100, 48, .7);
+
+      box-shadow:
+        0 0 18px rgba(56,255,105,.18);
     }
 
     button:active {
-      transform: scale(.99);
+      transform: scale(.995);
     }
 
-    .primary {
-      background: #fff;
-      color: #000;
-      border-color: #fff;
+    button:disabled {
+      opacity: .55;
+      cursor: default;
     }
 
-    .primary:hover {
-      background: #ddd;
+    /* LOG */
+
+    .section-title {
+      margin: 28px 0 10px;
+
+      color: #3f6b4a;
+
+      font-size: 11px;
+      font-weight: bold;
+
+      letter-spacing: 2px;
     }
 
     #console {
-      margin-top: 30px;
-      height: 260px;
+      height: 280px;
+
       overflow-y: auto;
-      padding: 16px;
-      background: #030405;
-      border: 1px solid #20232a;
-      border-radius: 10px;
-      color: #b9c0ca;
-      font-family: monospace;
-      font-size: 13px;
-      line-height: 1.5;
+
+      padding: 17px;
+
+      background: rgba(0, 4, 1, .94);
+
+      border: 1px solid #102b17;
+      border-radius: 8px;
+
+      color: #70c887;
+
+      font-size: 12px;
+      line-height: 1.55;
+
+      box-shadow:
+        inset 0 0 25px rgba(0,255,70,.025);
+    }
+
+    #console div {
+      margin-bottom: 2px;
+    }
+
+    .footer {
+      margin-top: 18px;
+
+      text-align: center;
+
+      color: #294b32;
+
+      font-size: 10px;
+      letter-spacing: 1px;
     }
 
     @media (max-width: 600px) {
-      .grid {
-        grid-template-columns: 1fr;
+      body {
+        padding: 20px 12px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      .title {
+        font-size: 24px;
+      }
+
+      .version {
+        display: none;
       }
     }
   </style>
@@ -132,74 +312,287 @@
 
 <body>
 
+<canvas id="matrix"></canvas>
+<div class="vignette"></div>
+
 <div class="container">
 
-  <div class="header">
-    <h1 class="title">PS5 Relapse</h1>
-    <div class="subtitle">Sp1kkelpoes Payload Host • Firmware 13.60</div>
+  <div class="topline">
+
+    <div>
+      <h1 class="title">RELAPSE</h1>
+
+      <div class="subtitle">
+        SP1KKELPOES PS5 PAYLOAD HOST // FW 13.60
+      </div>
+    </div>
+
+    <div class="version">
+      BUILD 09F10F5
+    </div>
+
   </div>
+
+  <div class="divider"></div>
 
   <div class="status">
-    <span class="status-dot"></span>
-    <span id="statusText">Running jailbreak...</span>
+
+    <span
+      class="status-dot"
+      id="statusDot">
+    </span>
+
+    <span id="statusText">
+      INITIALIZING RELAPSE...
+    </span>
+
   </div>
 
-  <div class="section-title">PAYLOADS</div>
+  <!-- Hidden until elfldr is ready -->
 
-  <div class="grid">
-    <button onclick="payload('etaHEN')">
-      etaHEN 2.6B
-    </button>
+  <div id="payloadArea">
 
-    <button onclick="payload('shadowMount')">
-      ShadowMount+
-    </button>
+    <div class="payload-card">
 
-    <button onclick="payload('kstuff')">
-      kstuff
-    </button>
+      <div class="payload-title">
+        ELF LOADER ONLINE
+      </div>
 
-    <button class="primary" onclick="payload('loadAll')">
-      Load Essentials
-    </button>
+      <div class="payload-description">
+        Port 9021 is ready. Load the required payload stack.
+      </div>
+
+      <button id="essentialsButton">
+        LOAD ESSENTIALS
+      </button>
+
+    </div>
+
   </div>
 
-  <div class="section-title">EXPLOIT LOG</div>
+  <div class="section-title">
+    // EXPLOIT OUTPUT
+  </div>
 
   <div id="console"></div>
 
+  <div class="footer">
+    RELAPSE // CUSTOM HOST BY SP1KKELPOES
+  </div>
+
 </div>
 
+
 <script>
-async function payload(name) {
-  const status = document.getElementById("statusText");
+/* ==========================================
+   UI
+========================================== */
 
-  if (!window.ps5Payloads) {
-    status.textContent = "Payload loader isn't ready yet";
-    return;
-  }
+window.addEventListener("elfldr-ready", () => {
 
-  const fn = window.ps5Payloads[name];
+  const status =
+    document.getElementById("statusText");
 
-  if (typeof fn !== "function") {
-    status.textContent = "Unknown payload";
-    return;
-  }
+  const dot =
+    document.getElementById("statusDot");
 
-  try {
-    status.textContent = "Loading " + name + "...";
+  const area =
+    document.getElementById("payloadArea");
 
-    await fn();
+  status.textContent =
+    "ELF LOADER READY // LISTENING ON PORT 9021";
 
-    status.textContent = name + " loaded";
-  } catch (error) {
-    status.textContent = "Failed: " + error.message;
+  dot.classList.add("ready");
 
-    if (window.writeLog)
-      window.writeLog(error.message, "error");
-  }
+  area.style.display = "block";
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const button =
+    document.getElementById("essentialsButton");
+
+  const status =
+    document.getElementById("statusText");
+
+  const dot =
+    document.getElementById("statusDot");
+
+
+  button.addEventListener("click", async () => {
+
+    if (!window.ps5Payloads?.loadEssentials) {
+      status.textContent =
+        "PAYLOAD API NOT READY";
+
+      return;
+    }
+
+    button.disabled = true;
+
+    button.textContent =
+      "LOADING PAYLOAD STACK...";
+
+    status.textContent =
+      "LOADING ESSENTIALS...";
+
+
+    try {
+
+      await window.ps5Payloads.loadEssentials();
+
+      button.textContent =
+        "✓ ESSENTIALS LOADED";
+
+      status.textContent =
+        "SYSTEM READY";
+
+      dot.classList.add("ready");
+
+    }
+
+    catch (error) {
+
+      button.disabled = false;
+
+      button.textContent =
+        "RETRY LOAD ESSENTIALS";
+
+      status.textContent =
+        "PAYLOAD LOADING FAILED";
+
+      dot.classList.remove("ready");
+      dot.classList.add("error");
+
+      if (window.writeLog) {
+
+        window.writeLog(
+          error instanceof Error
+            ? error.message
+            : String(error),
+          "error"
+        );
+
+      }
+
+    }
+
+  });
+
+});
+
+
+/* ==========================================
+   MATRIX DIGITAL RAIN
+========================================== */
+
+const canvas =
+  document.getElementById("matrix");
+
+const ctx =
+  canvas.getContext("2d");
+
+const characters =
+  "01010101010101100101011010010101";
+
+const fontSize = 15;
+
+let columns = 0;
+let drops = [];
+
+
+function resizeMatrix() {
+
+  canvas.width =
+    window.innerWidth;
+
+  canvas.height =
+    window.innerHeight;
+
+  columns =
+    Math.floor(canvas.width / fontSize);
+
+  drops =
+    Array(columns).fill(1);
+
 }
+
+
+function drawMatrix() {
+
+  ctx.fillStyle =
+    "rgba(2, 4, 3, 0.08)";
+
+  ctx.fillRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+
+  ctx.fillStyle =
+    "#28d957";
+
+  ctx.font =
+    fontSize + "px monospace";
+
+
+  for (
+    let i = 0;
+    i < drops.length;
+    i++
+  ) {
+
+    const char =
+      characters[
+        Math.floor(
+          Math.random() *
+          characters.length
+        )
+      ];
+
+
+    ctx.fillText(
+      char,
+      i * fontSize,
+      drops[i] * fontSize
+    );
+
+
+    if (
+      drops[i] * fontSize >
+        canvas.height &&
+      Math.random() > 0.975
+    ) {
+
+      drops[i] = 0;
+
+    }
+
+    drops[i]++;
+
+  }
+
+}
+
+
+resizeMatrix();
+
+window.addEventListener(
+  "resize",
+  resizeMatrix
+);
+
+setInterval(
+  drawMatrix,
+  45
+);
 </script>
+
+
+<!-- ORIGINAL EXPLOIT FILES -->
 
 <script src="./src/firmware.js"></script>
 <script src="./src/main.js"></script>
