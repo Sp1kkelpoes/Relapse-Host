@@ -13,7 +13,7 @@ Supported firmware: **7.00 through 13.60**.
   `https://sp1kkelpoes.github.io/Relapse-Host/`
 - The exploit starts automatically when the page loads.
 - Wait for the WebKit and kernel stages to complete.
-- After the ELF loader successfully starts on port `9021`, the **LOAD ESSENTIALS** button will appear.
+- After the ELF loader successfully starts on port `9021`, the **LOAD ESSENTIALS** button will appear. (R2 AS FALLBACK)
 - Press **LOAD ESSENTIALS** to load the included payload stack.
 
 The payload stack is loaded in this order:
