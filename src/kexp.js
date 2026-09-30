@@ -321,5 +321,48 @@ export async function runKexp(krw, p, chain, log) {
   if (result.joinResult !== 0)
     throw new Error("kexp: pthread_join returned " + hex(result.joinResult));
   say("elfldr returned " + hex(result.shellcodeResult));
-  return true;
+
+window.ps5Payloads = {
+  async kstuff() {
+    say("Loading kstuff...");
+    const payload = await mapElf("kstuff.elf", p, chain);
+    await sendElf("kstuff.elf", payload, p, chain);
+    say("kstuff loaded");
+  },
+
+  async shadowMount() {
+    say("Loading ShadowMount+...");
+    const payload = await mapElf("shadowmountplus.elf", p, chain);
+    await sendElf("shadowmountplus.elf", payload, p, chain);
+    say("ShadowMount+ loaded");
+  },
+
+  async etaHEN() {
+    say("Loading etaHEN 2.6B...");
+    const payload = await mapElf("etaHEN.elf", p, chain);
+    await sendElf("etaHEN.elf", payload, p, chain);
+    say("etaHEN 2.6B loaded");
+  },
+
+  async loadAll() {
+    say("Loading essentials...");
+
+    const kstuff = await mapElf("kstuff.elf", p, chain);
+    await sendElf("kstuff.elf", kstuff, p, chain);
+    say("kstuff loaded");
+
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    const shadow = await mapElf("shadowmountplus.elf", p, chain);
+    await sendElf("shadowmountplus.elf", shadow, p, chain);
+    say("ShadowMount+ loaded");
+
+    const etahen = await mapElf("etaHEN.elf", p, chain);
+    await sendElf("etaHEN.elf", etahen, p, chain);
+    say("etaHEN 2.6B loaded");
+  }
+};
+
+say("Payload controls ready");
+return true;
 }
