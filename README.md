@@ -26,3 +26,5 @@ The software is provided as-is, without warranty. You assume the risks of using 
 Even though it had compatibility issues, they were never a problem for me. However, it was still annoying having to load everything manually.
 
 So, this is basically the old commit, brought back for convenience. **
+
+** ALSO ADDED SOME VISUAL STUFF DOESNT AFFECT ANYTHING IMPORTANT!! **
